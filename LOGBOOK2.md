@@ -41,4 +41,4 @@ A partir daqui fomos tentar encontrar as versões dos plugins que estavam a ser 
 
 Com uma pesquisa na internet encontrámos uma vulnerabilidade para o plugin Booster for WooCommerce CVE(2021-34646) de Authentication Bypass, e aqui está a primeira (FLAG).
 
-Ao correr o script consegui-mos ter acesso à admin account. a partir daqui navegámos para o post privado que estava mencionado no enunciado e encontrámos a segunda FLAG.
+Ao correr o script conseguimos ter acesso à admin account. A partir daqui navegámos para o post privado que estava mencionado no enunciado e encontrámos a segunda FLAG.
