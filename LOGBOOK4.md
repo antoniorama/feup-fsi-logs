@@ -21,18 +21,15 @@ Reading the `admin_note.txt` allowed us to understand that we could use the `/tm
 Using the `cat` command on `my_script.sh`, we could see that it would run the `reader` file located in that same folder, but before that it would source the environment variables through the previously mentioned `env` folder. Using the same command on the `main.c` file on which the `reader` executable was compiled from, we saw that it used the `access()` function from the C standard library to verify that the file `/flags/flag.txt` existed.
 
 From this point, what we did was `cd` into the `/tmp` directory and compiled a snippet of C code as a library to override the `access()` function being called by the script. The code used was:
-
+```c
 #include <stdio.h>
-
 #include <unistd.h>
 
 int access(const char *pathname, int mode){
-
-system("cat /flags/flag.txt >> /tmp/new.txt");
-
-return 0;
-
+    system("cat /flags/flag.txt >> /tmp/new.txt");
+    return 0;
 }
+```
 
 This code file, when compiled to a library, overrides the `access()` function and runs a system function that calls to the shell to use the `cat` command in order to write the contents of the `/flags/flag.txt` file into a readable file created by us `/tmp/new.txt`.
 
