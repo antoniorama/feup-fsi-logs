@@ -1,8 +1,11 @@
 ## Practical classes this week
 
 - **Task 1:** Running both versions of the shellcode created a root shell that we could use.
+
 - **Task 2:** Nothing to add, all we were asked to do was to compile the vulnerable program stack.c using the provided Makefile.
-- **Task 3:** 
+
+- **Task 3:** We were asked to perform and explain a buffer-overflow attack against a program called stack-L1. We first started by creating a file named `badfile` which would be read by the program. After that, using gdb on thr program `stack-L1-dbg`, we were able to visualize the `&buffer` and `$ebp` address values. [](../images/lb5i1.png)
+
 
 ## This week's CTF
 
