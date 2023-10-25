@@ -17,6 +17,8 @@
 
 - This was the flag we got for the id f748e071d63b1a20d029f6d634af24c5 : flag{f748e071d63b1a20d029f6d634af24c5} 
 
+![Alt text](images/ctf6i1.png)
+
 - Later, we found a workaround for this problem. It consists in changing the input form so it submits in another tab. This way we are able to stay in `http://ctf-fsi.fe.up.pt:5004/request/{id_of_request}` and see the flag. This would be the new input:
 
 
