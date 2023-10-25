@@ -15,6 +15,8 @@
 
 - There was a problem, when we used this justification, we would be automatically redirected to the approve webpage and we would get a `Forbidden` error. We found a workarround, after waiting a couple of seconds for the admin to fall for out _trap_, we decided to load into the webpage `ctf-fsi.fe.up.pt:5004/request/{id_of_request}` (the justification page), and we stopped the redirect by clinking the `X` in the refresh symbol of our browser, allowing us to stay there and see the flag revealed to us.
 
+- This was the flag we got for the id f748e071d63b1a20d029f6d634af24c5 : flag{f748e071d63b1a20d029f6d634af24c5} 
+
 - Later, we found a workaround for this problem. It consists in changing the input form so it submits in another tab. This way we are able to stay in `http://ctf-fsi.fe.up.pt:5004/request/{id_of_request}` and see the flag. This would be the new input:
 
 
