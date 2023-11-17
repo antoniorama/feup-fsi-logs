@@ -79,3 +79,19 @@ Our goal now is to change Boby's salary to 1. Assuming that we know that his emp
 Logging in into Boby's account with the technique used in task 2.1, we see that his salary has been changed:
 
 ![Alt image](images/lb8i12.png)
+
+- **Task 3.3**
+
+Our goal in this task it to change Boby's password. Let's try chaning it to a simple **123**:
+
+From the code, we know that the passwords are stored in the database after beying encrypted by a SHA1 algorithm, so we browsed to convert 123 to the corresponding hash:
+
+![Alt image](images/lb8i13.png)
+
+After this, we did the input for the SQLi : **a', password='40bd001563085fc35165329ea1ff5c5ecbdbbeef' WHERE Name='Boby';#**
+
+When we try to log in to Boby's account with password 123, we are successful:
+
+![Alt image](images/lb8i14.png)
+
+![Alt image](images/lb8i15.png)
