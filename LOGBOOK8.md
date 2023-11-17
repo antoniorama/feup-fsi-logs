@@ -40,8 +40,42 @@ When we log in, we see that we have access to all the employee's details:
 
 The goal of this task was to do the request in the terminal using curl. We encoded the special characters used in the username field and got the following command:
 
-** curl 'http://www.seed-server.com/unsafe_home.php?username=admin'%3B%23&Password=' ** 
+**curl 'http://www.seed-server.com/unsafe_home.php?username=admin'%3B%23&Password='** 
 
 The response contained the table with all employee's information:
 
 ![Alt image](images/lb8i8.png)
+
+- **Task 2.3**
+
+If we were able to run mulitple queries, we could do an input in the username to (for example) delete Alice from the table:
+
+**admin'; DELETE FROM credential WHERE name = 'Alice';#** 
+
+However, this is not possible because of the **mysqli::query()** php method that is used in the code. This method does not allow multiple querries to run in the database server due to security purposes.
+
+- **Task 3.1**
+
+To start doing this task we must log in as Alice (using the same method as before) : **Alice'#;** input in the username field.
+
+When we log in as Alice we see her page, and the option do Edit Profile:
+
+![Alt image](images/lb8i9.png)
+
+This section allows us to edit some information, and the PHP code is given in the lab:
+
+![Alt image](images/lb8i10.png)
+
+Our goal is to increase our salary with an SQLi. The payload we got to work was this: **a', salary = 999999999 WHERE Name='Alice';#**
+
+![Alt image](images/lb8i11.png)
+
+If we didn't include the **WHERE Name='Alice'** part, then it would have changed everyone's salary and nickname.
+
+- **Task 3.2**
+
+Our goal now is to change Boby's salary to 1. Assuming that we know that his employee id is 20000, we can craft the following input : **a', salary=1 WHERE Name=Boby;#** , that is basically the same as before but changing the Name to Boby and salary to 1.
+
+Logging in into Boby's account with the technique used in task 2.1, we see that his salary has been changed:
+
+![Alt image](images/lb8i12.png)
