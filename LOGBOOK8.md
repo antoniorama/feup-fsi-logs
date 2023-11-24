@@ -95,3 +95,18 @@ When we try to log in to Boby's account with password 123, we are successful:
 ![Alt image](images/lb8i14.png)
 
 ![Alt image](images/lb8i15.png)
+
+### SQL Injection CTF
+
+The input used in the admin field to perform this SQL injection was **admin';#** and in the password field we can put anything.
+
+![Alt image](images/lb8i18.png)
+
+Input explanation:
+
+By reading the php code, we know that the SQL query executed executed in login attemps is the following :
+**SELECT username FROM user WHERE username = '".$username."' AND password = '".$password."'**
+
+with $username and $password being the input fields, so by using **admin';#** in the username field, we close the field with ', end the query with ; and comment out the rest of the query with #.
+
+So the executed query with this input will be: **SELECT username FROM user WHERE username = 'admin';**
