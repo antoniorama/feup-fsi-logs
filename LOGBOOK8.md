@@ -100,7 +100,7 @@ When we try to log in to Boby's account with password 123, we are successful:
 
 The input used in the admin field to perform this SQL injection was **admin';#** and in the password field we can put anything.
 
-![Alt image](images/lb8i18.png)
+![Alt image](images/l8i18.png)
 
 Input explanation:
 
