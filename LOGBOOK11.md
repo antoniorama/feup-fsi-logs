@@ -30,3 +30,19 @@ After this change we are able to sign the request:
 
 ![Alt text](images/lb11i5.png)
 
+### Task 3 - Deploying Certificate in an HTTPS Web Server
+
+- Step 1 : In this step we just mapped the SEEDPKILab2020.com to our localhost in the /etc/hosts file.
+
+- Step 2 : In this step we are asked to configure the web server using the openssl `s_server` command.
+First we copy the secret key and the certificate into one file and we run the server using that file.
+
+We ran into an error web trying to serve the server saying that the key is too small:
+
+![Alt text](images/lb11i6.png)
+
+To fix this, we genearted the key and signed the certificate again, but this time used 2048 bits instead of the 1024 suggested by the lab. And now we were able to run the server:
+
+![Alt text](images/lb11i7.png)
+![Alt text](images/lb11i8.png)
+
