@@ -225,6 +225,55 @@ Now we can browse to bank32.com without getting any warning:
 
 ###  Task 5 - Launching a Man-In-The-Middle Attack
 
+- Step 1 - Setting up the malicious website
+
+To configure the DNS on the attakcer, add the target website as an entry in /etc/hosts as shown below.
+
+![Alt text](images/lb11i10.png)
+
+We will use facebook.com as an example.
+
+After this we need to change the apache conf file as shown below:
+
+![Alt text](images/lb11i11.jpg)
+
+- Step 2 - Becoming the man in the middle
+
+To route the user to our website when browsing for the legit one we could modify the victim's /etc/hosts file to add our website to the DNS:
+
+`10.9.0.80   www.facebook.com`
+
+in the victim's machine.
+
+- Step 3 - Browse the target website
+
+When we try browsing to www.facebook.com, we are not allowed to do so and we get a `SSL_ERROR_BAD_CERT_DOMAIN` error code because we are trying to access www.facebook.com but the certificate being used is only valid for www.bank32.com :
+
+![Alt text](images/lb11i12.jpg)
+
+###  Task 6 -  Launching a Man-In-The-Middle Attack with a Compromised CA
+
+Let's compromise the root CA and generate a certificate that allows www.facebook.com, using the following command:
+
+`openssl req -newkey rsa:2048 -sha256  \-keyout facebook.key -out facebook.csr  \-subj "/CN=www.bank32.com/O=Bank32 Inc./C=US" \-passout pass:dees -addext "subjectAltName = DNS:www.bank32.com,  \DNS:www.bank32A.com, \DNS:www.bank32B.com, \DNS:www.facebook.com"`
+
+This generates a certificate request that also allows www.facebook.com. 
+
+Then, we can sign our request using the "compromised" root CA:
+
+`openssl ca -config openssl.cnf -policy policy_anything \-md sha256 -days 3650 \-in facebook.csr -out facebook.crt -batch \-cert ca.crt -keyfile ca.key`
+
+To use this certificate and key in our apache server we need to copy them to the certs directory (I will copy with bank32 name so I don't need to change the Dockerfile):
+
+![Alt text](images/lb11i13.jpg)
+
+Now if we try to access facebook.com we are allowed:
+
+![Alt text](images/lb11i14.jpg)
+
+In a real-world scenario we would change the appearance of the webpage to mimic facebook so the victim would think he was in the correct website.
+
+
 # This week's CTF
 
 In this week we were tasked to decrypt the flag encrypted with RSA encryption.
