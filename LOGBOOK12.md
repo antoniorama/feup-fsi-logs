@@ -149,3 +149,33 @@ In the image it is shown a first ping without the script being running in the VM
 The second ping was made with the running script in the VM, as the server actually exists, we got a duplicate response on each packet sent.
 
 ![Alt text](/images/lb12i8.png)
+
+
+# This week's CTF
+
+This week, our job was to analyze a .pcapng file and construct a flag based on certain values to be collected by reading the file's contents using `Wireshark`.
+
+To begin, after opening up the file using Wireshark, we needed to find the TLS handshake which used the random number `52362c11ff0ea3a000e1b48dc2d99e04c6d06ea1a061d5b8ddbf87b001745a27` in the `Client Hello` message.
+
+To do this, we can use a filter like the one shown in the picture:
+
+![Alt text](<images/lb12i9.png>)
+
+Now that we have located the correct frame for the start of the handshake, we have collected one piece of the flag, the `frame-start` value, which is 814.
+
+Removing the filter and locating frame 814, we see the entire TLS handshake messages, and now we can see the `frame-end` value, which is 819 since it's the frame labeled `New Session Ticket, Change cipher spec, Encrypted Handshake Message` which is the last message in the handshake procedure sent by the Server to the Client.
+
+![Alt text](images/lb12i10.png)
+
+
+To get the next piece of the flag, `selected-cipher-suite`, we need to look into the data of the `Server Hello` frame, in which we see the cipher-suite the Server has deemed to be used for encrypted communication. It's value is `TLS_RSA_WITH_AES_128_CBC_SHA256`
+
+![Alt text](images/lb12i11.png)
+
+By analizing the following frames, labeled `Application Data`, we are able to obtain the fourth value, `total-encrypted-appdata-exchanged`, which is 1264.
+
+Finally, by going back to frame 819, we can see the final value, `size-of-encrypted-message`, which is 80.
+
+Using all of these, we construct the flag, which is:
+
+`flag{814-819-TLS_RSA_WITH_AES_128_CBC_SHA256-1264-80}`
